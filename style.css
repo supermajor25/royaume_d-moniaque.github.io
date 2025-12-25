@@ -1005,6 +1005,9 @@
   padding-right: 5px;
   box-sizing: border-box;
 }
+.grimoire, .ritual-links, .ritual-link {
+  box-sizing: border-box;
+}
 
 
     }
