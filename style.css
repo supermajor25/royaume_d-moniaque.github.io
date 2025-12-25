@@ -974,16 +974,6 @@
 .ritual-link[data-type="x"]:hover {
   color: #888888;
 }
-
-/* Label et tag */
-.ritual-link .label {
-  font-weight: bold;
-}
-
-.ritual-link .tag {
-  font-size: 0.85em;
-  opacity: 0.7;
-}
 /* Grimoire */
 .grimoire {
   width: 320px;          /* largeur */
@@ -1058,6 +1048,9 @@
   font-size: 0.85em;
   opacity: 0.7;
 }
+
+
+
 
 
 
