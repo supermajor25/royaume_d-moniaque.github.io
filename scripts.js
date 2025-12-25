@@ -4,7 +4,21 @@ const links = document.querySelectorAll('.ritual-link');
 
 let isInvoking = false;
 let ritualTimeout = null;
-      
+
+function setRitualTheme(type) {
+  root.classList.remove(
+    'theme-youtube',
+    'theme-twitch',
+    'theme-discord',
+    'theme-instagram',
+    'theme-x'
+  );
+
+  if (type) {
+    root.classList.add(`theme-${type}`);
+  }
+}
+     
   
   function startRitual(url) {
   if (isInvoking) return;
@@ -48,14 +62,18 @@ let ritualTimeout = null;
 }
 
        
-      links.forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          const url = this.getAttribute('href');
-          if (!url) return;
-          startRitual(url);
-        });
-      });
+     links.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+
+    const url = link.getAttribute('href');
+    const type = link.dataset.type;
+
+    setRitualTheme(type);
+    startRitual(url);
+  });
+});
+
 
       window.addEventListener('beforeunload', () => {
         if (ritualTimeout) clearTimeout(ritualTimeout);
