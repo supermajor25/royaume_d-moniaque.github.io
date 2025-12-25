@@ -838,47 +838,5 @@
       .hint {
         font-size: 9px;
       }
-     /* THEMES DE RITUEL */
-
-.theme-youtube {
-  --portal-inner: #ff2d2d;
-  --portal-mid: #ff0000;
-  --portal-outer: #ffb3b3;
-}
-
-.theme-twitch {
-  --portal-inner: #a970ff;
-  --portal-mid: #9146ff;
-  --portal-outer: #d6b8ff;
-}
-
-.theme-discord {
-  --portal-inner: #5865f2;
-  --portal-mid: #4752c4;
-  --portal-outer: #9da7ff;
-}
-
-.theme-instagram {
-  --portal-inner: #ff7a18;
-  --portal-mid: #e1306c;
-  --portal-outer: #feda75;
-}
-
-.theme-x {
-  --portal-inner: #ffffff;
-  --portal-mid: #888888;
-  --portal-outer: #000000;
-}
-     a {
-  color: var(--portal-inner); /* couleur du thème */
-  text-decoration: none; /* optionnel */
-}
-
-a:hover {
-  color: var(--portal-mid); /* couleur au survol */
-}
-
-
- 
     }
   </style>
