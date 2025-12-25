@@ -989,8 +989,8 @@
   height: 400px;          /* hauteur fixe */
   border: 2px solid #444;
   padding: 10px;
+  overflow: visible; /* ou auto */
   background: #111;
-  overflow: hidden;       /* cache tout sauf le scrollable */
   box-sizing: border-box;
 }
 
@@ -1003,11 +1003,15 @@
   height: 100%;      /* occupe toute la hauteur du parent */
   overflow-y: auto;  /* active le scroll si contenu dépasse */
   padding-right: 5px;
+  overflow: visible; /* ou auto */
   box-sizing: border-box;
 }
-.grimoire, .ritual-links, .ritual-link {
-  box-sizing: border-box;
+.ritual-link {
+  margin: 0;
+  padding: 10px;
 }
+
+
 
 
     }
