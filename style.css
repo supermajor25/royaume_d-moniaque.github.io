@@ -984,32 +984,21 @@
   font-size: 0.85em;
   opacity: 0.7;
 }
-   .grimoire {
-  width: 320px;           /* largeur du grimoire */
-  height: 400px;          /* hauteur fixe */
+.grimoire {
+  width: 320px;
   border: 2px solid #444;
   padding: 10px;
-  overflow: visible; /* ou auto */
   background: #111;
+  overflow: visible; /* pas de scroll */
   box-sizing: border-box;
-}
-
 }
 
 .ritual-links {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  height: 100%;      /* occupe toute la hauteur du parent */
-  overflow-y: auto;  /* active le scroll si contenu dépasse */
-  padding-right: 5px;
-  overflow: visible; /* ou auto */
-  box-sizing: border-box;
+  gap: 8px; /* espace entre les liens */
 }
-.ritual-link {
-  margin: 0;
-  padding: 10px;
-}
+
 
 
 
