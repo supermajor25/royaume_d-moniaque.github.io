@@ -79,12 +79,4 @@ function setRitualTheme(type) {
         if (ritualTimeout) clearTimeout(ritualTimeout);
       });
     })();
-const container = document.querySelector('.ritual-links');
-document.getElementById('up').addEventListener('click', () => {
-  container.scrollBy({ top: -50, behavior: 'smooth' });
-});
-document.getElementById('down').addEventListener('click', () => {
-  container.scrollBy({ top: 50, behavior: 'smooth' });
-});
-
   </script>
