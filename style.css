@@ -838,5 +838,79 @@
       .hint {
         font-size: 9px;
       }
+     .ritual-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ritual-link {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+/* Thèmes */
+.ritual-link[data-type="youtube"] {
+  background-color: #ffb3b3;
+  color: #ff2d2d;
+}
+.ritual-link[data-type="youtube"]:hover {
+  color: #ff0000;
+}
+
+.ritual-link[data-type="twitch"] {
+  background-color: #d6b8ff;
+  color: #a970ff;
+}
+.ritual-link[data-type="twitch"]:hover {
+  color: #9146ff;
+}
+
+.ritual-link[data-type="discord"] {
+  background-color: #9da7ff;
+  color: #5865f2;
+}
+.ritual-link[data-type="discord"]:hover {
+  color: #4752c4;
+}
+
+.ritual-link[data-type="instagram"] {
+  background-color: #feda75;
+  color: #ff7a18;
+}
+.ritual-link[data-type="instagram"]:hover {
+  color: #e1306c;
+}
+
+.ritual-link[data-type="tiktok"] {
+  background-color: #d0f0fd;
+  color: #69c9d0;
+}
+.ritual-link[data-type="tiktok"]:hover {
+  color: #00f2ea;
+}
+
+.ritual-link[data-type="x"] {
+  background-color: #000000;
+  color: #ffffff;
+}
+.ritual-link[data-type="x"]:hover {
+  color: #888888;
+}
+
+/* Label et tag */
+.ritual-link .label {
+  font-weight: bold;
+}
+
+.ritual-link .tag {
+  font-size: 0.85em;
+  opacity: 0.7;
+}
+
     }
   </style>
