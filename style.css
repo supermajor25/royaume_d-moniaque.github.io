@@ -985,21 +985,7 @@
   opacity: 0.7;
 }
      
-.grimoire {
-  width: 300px;          /* largeur du grimoire */
-  height: 400px;         /* hauteur fixe pour le scroll */
-  border: 2px solid #444;
-  padding: 10px;
-  background: #111;
-}
 
-.ritual-links {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  height: 100%;         /* occupe toute la hauteur du conteneur */
-  overflow-y: auto;     /* active le scroll vertical */
-}
 
     
 
