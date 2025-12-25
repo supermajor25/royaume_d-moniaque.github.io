@@ -991,44 +991,21 @@
   padding: 10px;
   background: #111;
   overflow: hidden;       /* cache tout sauf le scrollable */
+  box-sizing: border-box;
+}
+
 }
 
 .ritual-links {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: 100%;       /* limite la hauteur au parent */
-  overflow-y: scroll;     /* force le scroll vertical */
-  padding-right: 5px;     /* pour éviter que le texte touche la scrollbar */
+  height: 100%;      /* occupe toute la hauteur du parent */
+  overflow-y: auto;  /* active le scroll si contenu dépasse */
+  padding-right: 5px;
+  box-sizing: border-box;
 }
 
-
-/* Style scrollbar (optionnel) */
-.ritual-links::-webkit-scrollbar {
-  width: 8px;
-}
-.ritual-links::-webkit-scrollbar-track {
-  background: #222;
-}
-.ritual-links::-webkit-scrollbar-thumb {
-  background: #555;
-  border-radius: 4px;
-}
-
-/* Tes liens */
-.ritual-link {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 15px;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-     
-
-
-    
 
     }
   </style>
