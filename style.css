@@ -984,18 +984,22 @@
   font-size: 0.85em;
   opacity: 0.7;
 }
-    .grimoire {
-  width: 320px;
-  height: 400px;      /* hauteur fixe */
+   .grimoire {
+  width: 320px;           /* largeur du grimoire */
+  height: 400px;          /* hauteur fixe */
   border: 2px solid #444;
-  background: #111;
   padding: 10px;
+  background: #111;
+  overflow: hidden;       /* cache tout sauf le scrollable */
 }
 
 .ritual-links {
-  max-height: 100%;   /* limite au parent */
-  overflow-y: auto;   /* active le scroll vertical */
-  padding-right: 5px; /* espace pour scrollbar */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 100%;       /* limite la hauteur au parent */
+  overflow-y: scroll;     /* force le scroll vertical */
+  padding-right: 5px;     /* pour éviter que le texte touche la scrollbar */
 }
 
 
