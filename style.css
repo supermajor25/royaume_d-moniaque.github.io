@@ -984,6 +984,19 @@
   font-size: 0.85em;
   opacity: 0.7;
 }
+     .ritual-links::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ritual-links::-webkit-scrollbar-track {
+  background: #222; /* fond de la scrollbar */
+}
+
+.ritual-links::-webkit-scrollbar-thumb {
+  background: #555; /* couleur du curseur */
+  border-radius: 4px;
+}
+
     
 
     }
