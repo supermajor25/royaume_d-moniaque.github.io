@@ -1,5 +1,12 @@
  <script>
-           function startRitual(url) {
+   const root = document.getElementById('ritualRoot');
+const links = document.querySelectorAll('.ritual-link');
+
+let isInvoking = false;
+let ritualTimeout = null;
+      
+  
+  function startRitual(url) {
   if (isInvoking) return;
   isInvoking = true;
 
