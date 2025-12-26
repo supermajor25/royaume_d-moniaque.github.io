@@ -971,17 +971,17 @@
         if (isInvoking) return;
         isInvoking = true;
 
-  let popup = null;
+  let portal = null;
 
-button.addEventListener('click', () => {
-  popup = window.open('about:blank', '_blank', 'noopener');
+circle.addEventListener('click', () => {
+  portal = window.open('about:blank', '_blank', 'noopener');
 
   root.classList.add('invoking');
   isInvoking = true;
 
   ritualTimeout = setTimeout(() => {
-    if (popup) {
-      popup.location.href = url;
+    if (portal) {
+      portal.location.replace(url);
     }
 
     root.classList.remove('invoking');
@@ -1005,6 +1005,7 @@ button.addEventListener('click', () => {
   </script>
 </body>
 </html>
+
 
 
 
