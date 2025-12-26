@@ -971,14 +971,23 @@
         if (isInvoking) return;
         isInvoking = true;
 
-        root.classList.add('invoking');
+  let popup = null;
 
-   ritualTimeout = setTimeout(() => {
-          window.open(url, '_blank', 'noopener');
-          root.classList.remove('invoking');
-          isInvoking = false;
-        }, 5000);
-      }
+button.addEventListener('click', () => {
+  popup = window.open('about:blank', '_blank', 'noopener');
+
+  root.classList.add('invoking');
+  isInvoking = true;
+
+  ritualTimeout = setTimeout(() => {
+    if (popup) {
+      popup.location.href = url;
+    }
+
+    root.classList.remove('invoking');
+    isInvoking = false;
+  }, 5000);
+});
 
       links.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -996,6 +1005,7 @@
   </script>
 </body>
 </html>
+
 
 
 
