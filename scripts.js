@@ -1,34 +1,33 @@
-  <script>
-    (function() {
-      const root = document.getElementById('ritualRoot');
-      const links = document.querySelectorAll('.ritual-link');
-      let isInvoking = false;
-      let ritualTimeout = null;
+ <script>
+(function () {
+  const root = document.getElementById('ritualRoot');
+  const links = document.querySelectorAll('.ritual-link');
+  let isInvoking = false;
 
-      function startRitual(url) {
-        if (isInvoking) return;
-        isInvoking = true;
+  function startRitual(url) {
+    if (isInvoking) return;
+    isInvoking = true;
 
-        root.classList.add('invoking');
+    // OUVERTURE IMMÉDIATE (obligatoire navigateur)
+    window.open(url, '_blank', 'noopener,noreferrer');
 
-        ritualTimeout = setTimeout(() => {
-          window.open(url, '_blank', 'noopener');
-          root.classList.remove('invoking');
-          isInvoking = false;
-        }, 5000);
-      }
+    // Lance l’animation
+    root.classList.add('invoking');
 
-      links.forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          const url = this.getAttribute('href');
-          if (!url) return;
-          startRitual(url);
-        });
-      });
+    // Reset après la durée du rituel
+    setTimeout(() => {
+      root.classList.remove('invoking');
+      isInvoking = false;
+    }, 5000); // = --ritual-duration
+  }
 
-      window.addEventListener('beforeunload', () => {
-        if (ritualTimeout) clearTimeout(ritualTimeout);
-      });
-    })();
-  </script>
+  links.forEach(link => {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      const url = this.getAttribute('href');
+      if (!url) return;
+      startRitual(url);
+    });
+  });
+})();
+</script>
