@@ -1,33 +1,23 @@
- <script>
-(function () {
-  const root = document.getElementById('ritualRoot');
-  const links = document.querySelectorAll('.ritual-link');
-  let isInvoking = false;
-
-  function startRitual(url) {
-    if (isInvoking) return;
-    isInvoking = true;
-
-    // OUVERTURE IMMÉDIATE (obligatoire navigateur)
-    window.open(url, '_blank', 'noopener,noreferrer');
-
-    // Lance l’animation
-    root.classList.add('invoking');
-
-    // Reset après la durée du rituel
-    setTimeout(() => {
-      root.classList.remove('invoking');
-      isInvoking = false;
-    }, 5000); // = --ritual-duration
-  }
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const root = document.getElementById("ritualRoot");
+  const links = document.querySelectorAll(".ritual-link");
 
   links.forEach(link => {
-    link.addEventListener('click', function (e) {
+    link.addEventListener("click", e => {
       e.preventDefault();
-      const url = this.getAttribute('href');
-      if (!url) return;
-      startRitual(url);
+
+      // 1. animation IMMÉDIATE
+      root.classList.add("invoking");
+
+      // 2. ouverture nouvel onglet (autorisé car clic utilisateur)
+      window.open(link.href, "_blank", "noopener,noreferrer");
+
+      // 3. reset animation
+      setTimeout(() => {
+        root.classList.remove("invoking");
+      }, 500);
     });
   });
-})();
+});
 </script>
