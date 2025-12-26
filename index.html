@@ -904,43 +904,23 @@
           <div class="page-sub">choisis le lien à invoquer</div>
 
           <div class="link-list">
-         <div class="link-list">
-  <a href="https://www.youtube.com/@Vornakhvt" class="ritual-link">
-    <span class="label">YouTube</span>
-    <span class="tag">chaîne principale</span>
-  </a>
-
-  <a href="https://www.youtube.com/channel/UCpinCkc3aQ_irHGqP6plCIw" class="ritual-link">
-    <span class="label">Chaîne secondaire</span>
-    <span class="tag">rituels annexes</span>
-  </a>
-
-  <a href="https://www.twitch.tv/vornakh" class="ritual-link">
-    <span class="label">Twitch</span>
-    <span class="tag">rituel en direct</span>
-  </a>
-
-  <a href="https://discord.com/invite/aQcES5qbYe" class="ritual-link">
-    <span class="label">Discord</span>
-    <span class="tag">cercle occulte</span>
-  </a>
-
-  <a href="https://www.instagram.com/vornakhvt/" class="ritual-link">
-    <span class="label">Instagram</span>
-    <span class="tag">journal du pacte</span>
-  </a>
-
-  <a href="https://www.tiktok.com/@vornakhvt?is_from_webapp=1&sender_device=pc" class="ritual-link">
-    <span class="label">TikTok</span>
-    <span class="tag">fragments du néant</span>
-  </a>
-
-  <a href="https://x.com/vornakh" class="ritual-link">
-    <span class="label">X (Twitter)</span>
-    <span class="tag">messages interdits</span>
-  </a>
-</div>
-
+            <a href="https://www.youtube.com" class="ritual-link">
+              <span class="label">YouTube</span>
+              <span class="tag">portail vidéo</span>
+            </a>
+            <a href="https://www.twitch.tv" class="ritual-link">
+              <span class="label">Twitch</span>
+              <span class="tag">rituel en direct</span>
+            </a>
+            <a href="https://discord.com" class="ritual-link">
+              <span class="label">Discord</span>
+              <span class="tag">cercle occulte</span>
+            </a>
+            <a href="https://www.tiktok.com" class="ritual-link">
+              <span class="label">TikTok</span>
+              <span class="tag">fragments du néant</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -968,48 +948,25 @@
   </div>
 
   <script>
-           function startRitual(url) {
-  if (isInvoking) return;
-  isInvoking = true;
+    (function() {
+      const root = document.getElementById('ritualRoot');
+      const links = document.querySelectorAll('.ritual-link');
+      let isInvoking = false;
+      let ritualTimeout = null;
 
-  let ritualTab = null;
-  let redirected = false;
+      function startRitual(url) {
+        if (isInvoking) return;
+        isInvoking = true;
 
-  try {
-    ritualTab = window.open('about:blank', '_blank');
-  } catch (e) {
-    ritualTab = null;
-  }
+        root.classList.add('invoking');
 
-  root.classList.add('invoking');
-
-  ritualTimeout = setTimeout(() => {
-    // Tentative de redirection dans le nouvel onglet
-    if (ritualTab && !ritualTab.closed) {
-      try {
-        ritualTab.location.href = url;
-        redirected = true;
-      } catch (e) {
-        redirected = false;
+        ritualTimeout = setTimeout(() => {
+          window.open(url, '_blank', 'noopener');
+          root.classList.remove('invoking');
+          isInvoking = false;
+        }, 5000);
       }
-    }
 
-    // Fallback : redirection dans la page actuelle
-    if (!redirected) {
-      window.location.href = url;
-
-      // Ferme l'onglet about:blank s'il est encore ouvert
-      if (ritualTab && !ritualTab.closed) {
-        ritualTab.close();
-      }
-    }
-
-    root.classList.remove('invoking');
-    isInvoking = false;
-  }, 5000);
-}
-
-       
       links.forEach(link => {
         link.addEventListener('click', function(e) {
           e.preventDefault();
