@@ -973,20 +973,11 @@
 
         root.classList.add('invoking');
 
-      button.addEventListener("click", () => {
-  if (isInvoking) return;
-  isInvoking = true;
-
-  root.classList.add("invoking");
-
-  const newTab = window.open("", "_blank", "noopener");
-
-  ritualTimeout = setTimeout(() => {
-    newTab.location.href = url;
-    root.classList.remove("invoking");
-    isInvoking = false;
-  }, 5000);
-});
+   ritualTimeout = setTimeout(() => {
+          window.open(url, '_blank', 'noopener');
+          root.classList.remove('invoking');
+          isInvoking = false;
+        }, 5000);
 
       links.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -1004,6 +995,7 @@
   </script>
 </body>
 </html>
+
 
 
 
