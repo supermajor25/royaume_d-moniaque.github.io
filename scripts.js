@@ -1,60 +1,31 @@
- <script>
-   const root = document.getElementById('ritualRoot');
-const links = document.querySelectorAll('.ritual-link');
+<script>
+  const root = document.getElementById('ritualRoot');
+  const links = document.querySelectorAll('.ritual-link');
 
-let isInvoking = false;
-let ritualTimeout = null;
+  let isInvoking = false;
 
- <script>
-         
-function startRitual(url) {
-  if (isInvoking) return;
-  isInvoking = true;
+  function startRitual(url) {
+    if (isInvoking) return;
+    isInvoking = true;
 
-  let ritualTab = null;
-  let redirected = false;
+    // Lance l’animation
+    root.classList.add('invoking');
 
-  try {
-    ritualTab = window.open('about:blank', '_blank');
-  } catch (e) {
-    ritualTab = null;
+    // Redirection APRÈS l’animation (1.5s)
+    setTimeout(() => {
+      window.location.href = url;
+    }, 1500);
   }
 
-  root.classList.add('invoking');
+  // Intercepte les clics sur les liens
+  links.forEach(link => {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      const url = this.getAttribute('href');
+      if (!url) return;
+      startRitual(url);
+    });
+  });
+</script>
 
-  ritualTimeout = setTimeout(() => {
-    // Tentative de redirection dans le nouvel onglet
-    if (ritualTab && !ritualTab.closed) {
-      try {
-        ritualTab.location.href = url;
-        redirected = true;
-      } catch (e) {
-        redirected = false;
-      }
-    }
-
-    // Fallback : redirection dans la page actuelle
-    if (!redirected) {
-      window.location.href = url;
-
-      // Ferme l'onglet about:blank s'il est encore ouvert
-      if (ritualTab && !ritualTab.closed) {
-        ritualTab.close();
-      }
-    }
-
-       
-      links.forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          const url = this.getAttribute('href');
-          if (!url) return;
-          startRitual(url);
-        });
-      });
-
-      window.addEventListener('beforeunload', () => {
-        if (ritualTimeout) clearTimeout(ritualTimeout);
-      });
-    })();
   </script>
