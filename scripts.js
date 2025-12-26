@@ -1,31 +1,34 @@
 <script>
-  const root = document.getElementById('ritualRoot');
-  const links = document.querySelectorAll('.ritual-link');
+    (function() {
+      const root = document.getElementById('ritualRoot');
+      const links = document.querySelectorAll('.ritual-link');
+      let isInvoking = false;
+      let ritualTimeout = null;
 
-  let isInvoking = false;
+      function startRitual(url) {
+        if (isInvoking) return;
+        isInvoking = true;
 
-  function startRitual(url) {
-    if (isInvoking) return;
-    isInvoking = true;
+        root.classList.add('invoking');
 
-    // Lance l’animation
-    root.classList.add('invoking');
+        ritualTimeout = setTimeout(() => {
+          window.open(url, '_blank', 'noopener');
+          root.classList.remove('invoking');
+          isInvoking = false;
+        }, 5000);
+      }
 
-    // Redirection APRÈS l’animation (1.5s)
-    setTimeout(() => {
-      window.location.href = url;
-    }, 1500);
-  }
+      links.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const url = this.getAttribute('href');
+          if (!url) return;
+          startRitual(url);
+        });
+      });
 
-  // Intercepte les clics sur les liens
-  links.forEach(link => {
-    link.addEventListener('click', function (e) {
-      e.preventDefault();
-      const url = this.getAttribute('href');
-      if (!url) return;
-      startRitual(url);
-    });
-  });
-</script>
-
+      window.addEventListener('beforeunload', () => {
+        if (ritualTimeout) clearTimeout(ritualTimeout);
+      });
+    })();
   </script>
