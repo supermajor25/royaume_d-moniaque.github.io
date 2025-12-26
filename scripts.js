@@ -1,4 +1,4 @@
-<script>
+  <script>
     (function() {
       const root = document.getElementById('ritualRoot');
       const links = document.querySelectorAll('.ritual-link');
