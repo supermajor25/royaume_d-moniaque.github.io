@@ -56,7 +56,9 @@
       90% { transform: translate(2px,-1px); }
     }
     .starfield {
-     opacity: 0.12;               /* au lieu de 0.04 */
+    position: absolute;
+  inset: -20%;
+      opacity: 0.12;               /* au lieu de 0.04 */
      background:
     radial-gradient(circle at 10% 20%, rgba(255,102,0,0.25) 0, transparent 40%),
     radial-gradient(circle at 80% 10%, rgba(165,0,0,0.20) 0, transparent 45%),
@@ -829,9 +831,12 @@
   <script>
     (function() {
       const root = document.getElementById('ritualRoot');
-      const links = document.querySelectorAll('.ritual-link');
+   const links = document.querySelectorAll('.ritual-link').forEach(link => {
       let isInvoking = false;
       let ritualTimeout = null;
+     link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const url = this.href;
 
       function startRitual(url) {
         if (isInvoking) return;
@@ -840,7 +845,36 @@
 
         // Ouvre une tab vide immédiatement (évite blocage popup)
         const portal = window.open('about:blank', '_blank', 'noopener,noreferrer');
+        
+if (currentPortal) {
+        // Optionnel : message dans la popup vide pendant le rituel
+        currentPortal.document.write(`
+          <!DOCTYPE html>
+          <html lang="fr">
+          <head><meta charset="UTF-8"><title>Invocation...</title></head>
+          <body style="margin:0;background:#000;color:#b33c00;font-family:system-ui;text-align:center;padding-top:20vh;">
+            <h1 style="font-size:2.5em;margin-bottom:1rem;">Le rituel s'accomplit...</h1>
+            <p style="font-size:1.3em;opacity:0.8;">Le portail s'ouvre dans quelques instants.</p>
+          </body>
+          </html>
+        `);
+        currentPortal.document.close();
+      }
 
+      setTimeout(() => {
+        root.classList.remove('invoking');
+
+        if (currentPortal && !currentPortal.closed) {
+          currentPortal.location.href = url;
+          currentPortal.focus();
+        } else {
+          // Fallback ultra-rare : même onglet
+          window.location.href = url;
+        }
+      }, 5000);
+    });
+  });
+})();
         if (!portal || portal.closed) {
           // Fallback si popup bloqué
           window.open(url, '_blank');
