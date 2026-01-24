@@ -1,145 +1,192 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <title>Rituel Test Couleurs Sombre</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>Rituel Étape 2 - Sombre</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
-      --bg-dark: #000000;
-      --violet: #4a0033;
       --red: #8b0000;
-      --orange-fire: #b33c00;
+      --orange: #b33c00;
       --gold-dim: #8b5a2b;
-      --book-cuir: #1a0d00;
-      --book-metal: #0a0a0a;
-      --paper: #1c1208;
-      --paper-shadow: #0f0804;
-      --chain-metal: #222222;
       --flash: #ff4500;
-      --portal-inner: #b33c00;
-      --portal-mid: #8b0000;
-      --portal-outer: #4a1a00;
-      --ritual-duration: 5s;
+      --duration: 5s;
     }
-
-    * { margin:0; padding:0; box-sizing:border-box; }
-
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #1a0000 0, #000000 60%, #000000 100%);
-      color: #d9b3b3;
-      min-height: 100vh;
+      margin: 0;
+      height: 100vh;
+      background: radial-gradient(circle at center, #1a0000, #000);
       overflow: hidden;
+      font-family: system-ui, sans-serif;
+      color: #d9b3b3;
     }
-
     .ritual-root {
       position: relative;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 20% 0%, rgba(139,0,0,0.15) 0, transparent 60%),
-        radial-gradient(circle at 80% 100%, rgba(179,60,0,0.18) 0, transparent 60%),
-        radial-gradient(circle at 50% 50%, #000000 0, #000000 75%);
+      width: 100%;
+      height: 100%;
     }
-
-    .ritual-root.invoking { animation: screen-vibration var(--ritual-duration) ease-in-out; }
-
-    @keyframes screen-vibration {
+    .ritual-root.invoking { animation: vibrate var(--duration) ease-in-out; }
+    @keyframes vibrate {
       0%,100% { transform: translate(0,0); }
-      5% { transform: translate(2px,-2px); }
-      10% { transform: translate(-3px,1px); }
-      15% { transform: translate(3px,2px); }
-      20% { transform: translate(-2px,-3px); }
-      25% { transform: translate(3px,1px); }
-      30% { transform: translate(-1px,2px); }
-      40% { transform: translate(2px,-1px); }
-      50% { transform: translate(0,0); }
-      60% { transform: translate(-2px,1px); }
-      70% { transform: translate(1px,-2px); }
-      80% { transform: translate(-1px,2px); }
-      90% { transform: translate(2px,-1px); }
+      10%,30%,50%,70%,90% { transform: translate(2px, -2px); }
+      20%,40%,60%,80% { transform: translate(-2px, 2px); }
     }
 
-    .starfield {
-      position: absolute;
-      inset: -20%;
-      background:
-        radial-gradient(circle at 10% 20%, rgba(255,69,0,0.12) 0, transparent 40%),
-        radial-gradient(circle at 80% 10%, rgba(139,0,0,0.10) 0, transparent 45%),
-        radial-gradient(circle at 20% 80%, rgba(179,60,0,0.11) 0, transparent 50%);
-      opacity: 0.04;
-      filter: blur(1px);
-      mix-blend-mode: screen;
-      animation: star-pulse 14s ease-in-out infinite;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    @keyframes star-pulse {
-      0%,100% { opacity: 0.04; transform: scale(1); }
-      50% { opacity: 0.12; transform: scale(1.06); }
-    }
-
+    /* Cercle principal */
     .summoning-circle {
       position: absolute;
-      width: 520px;
-      height: 520px;
-      border-radius: 50%;
-      border: 2px solid rgba(139,0,0,0.12);
-      background:
-        radial-gradient(circle at center, rgba(139,0,0,0.06) 0, transparent 55%),
-        conic-gradient(from 0deg, rgba(179,60,0,0.35), rgba(139,0,0,0.32), rgba(139,90,43,0.30), rgba(179,60,0,0.35));
-      mix-blend-mode: screen;
-      opacity: 0.10;
-      filter: blur(1px);
-      animation: circle-rotate 32s linear infinite;
-      pointer-events: none;
-      top: 50%;
-      left: 50%;
+      width: 500px; height: 500px;
+      top: 50%; left: 50%;
       transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: conic-gradient(#b33c00, #8b0000, #8b5a2b, #b33c00);
+      opacity: 0.35;
+      filter: blur(3px);
+      animation: rotate 28s linear infinite;
       z-index: 1;
     }
+    @keyframes rotate { to { transform: translate(-50%, -50%) rotate(360deg); } }
 
-    @keyframes circle-rotate {
-      0% { transform: translate(-50%, -50%) rotate(0deg); }
-      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    /* Portal pulsant */
+    .portal {
+      position: absolute;
+      width: 380px; height: 380px;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      border-radius: 50%;
+      border: 5px solid #b33c00;
+      box-shadow: 0 0 80px #ff4500, inset 0 0 40px #8b0000;
+      opacity: 0.7;
+      animation: pulse 10s infinite ease-in-out;
+      z-index: 2;
+    }
+    @keyframes pulse {
+      0%,100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.7; }
+      50% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
     }
 
-    .ritual-root.invoking .summoning-circle {
-      animation: circle-surge var(--ritual-duration) ease-out;
-      opacity: 0.40;
+    /* Anneau de runes */
+    .runes-ring {
+      position: absolute;
+      width: 340px; height: 340px;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: spin-runes 22s linear infinite;
+      z-index: 3;
     }
-
-    @keyframes circle-surge {
-      0% { transform: translate(-50%,-50%) scale(0.7) rotate(0deg); opacity: 0; }
-      40% { transform: translate(-50%,-50%) scale(1.05) rotate(120deg); opacity: 0.5; }
-      100% { transform: translate(-50%,-50%) scale(1.3) rotate(300deg); opacity: 0; }
+    @keyframes spin-runes { to { transform: translate(-50%, -50%) rotate(-360deg); } }
+    .rune {
+      position: absolute;
+      font-size: 28px;
+      color: #8b5a2b;
+      text-shadow: 0 0 12px #ff4500, 0 0 20px #b33c00;
+      width: 30px; height: 30px;
+      text-align: center;
+      line-height: 30px;
     }
+    .rune:nth-child(1)  { transform: rotate(0deg)   translate(170px) rotate(0deg);   }
+    .rune:nth-child(2)  { transform: rotate(30deg)  translate(170px) rotate(-30deg); }
+    .rune:nth-child(3)  { transform: rotate(60deg)  translate(170px) rotate(-60deg); }
+    .rune:nth-child(4)  { transform: rotate(90deg)  translate(170px) rotate(-90deg); }
+    .rune:nth-child(5)  { transform: rotate(120deg) translate(170px) rotate(-120deg);}
+    .rune:nth-child(6)  { transform: rotate(150deg) translate(170px) rotate(-150deg);}
+    .rune:nth-child(7)  { transform: rotate(180deg) translate(170px) rotate(-180deg);}
+    .rune:nth-child(8)  { transform: rotate(210deg) translate(170px) rotate(-210deg);}
+    .rune:nth-child(9)  { transform: rotate(240deg) translate(170px) rotate(-240deg);}
+    .rune:nth-child(10) { transform: rotate(270deg) translate(170px) rotate(-270deg);}
+    .rune:nth-child(11) { transform: rotate(300deg) translate(170px) rotate(-300deg);}
+    .rune:nth-child(12) { transform: rotate(330deg) translate(170px) rotate(-330deg);}
 
-    /* Ajoute ici le reste du CSS original pour portal, runes, book, etc. */
-    /* Si tu as le code complet sombre précédent, colle-le à partir de .portal { ... } jusqu'à la fin */
+    /* Grimoire simplifié en bas à gauche */
+    .book-wrapper {
+      position: absolute;
+      bottom: 30px;
+      left: 30px;
+      width: 340px;
+      height: 240px;
+      perspective: 1000px;
+      z-index: 10;
+    }
+    .book {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateX(15deg) rotateY(-12deg);
+    }
+    .book-cover {
+      position: absolute;
+      width: 48%;
+      height: 100%;
+      background: linear-gradient(#1a0d00, #0a0500);
+      border: 2px solid #8b5a2b;
+      box-shadow: inset 0 0 20px #000, 0 0 30px #b33c00;
+    }
+    .left { left: 0; transform-origin: right; }
+    .right { right: 0; transform-origin: left; transform: rotateY(-5deg); }
+    .page {
+      position: absolute;
+      inset: 15px;
+      background: #1c1208;
+      border: 1px solid #8b5a2b;
+      padding: 15px;
+      color: #d9b3b3;
+      overflow-y: auto;
+      font-size: 0.9rem;
+    }
+    .page h2 { color: #ff4500; text-align: center; margin-bottom: 10px; }
 
-    /* Pour tester vite : mets juste ça pour voir si le cercle tourne */
-    .portal, .runes-ring, .rift, .book-wrapper { opacity: 1 !important; } /* force visible pour debug */
+    .hint {
+      position: absolute;
+      bottom: 15px; left: 50%;
+      transform: translateX(-50%);
+      color: #ff4500;
+      font-size: 1.1rem;
+      text-shadow: 0 0 8px #000;
+      z-index: 20;
+    }
   </style>
 </head>
 <body>
-  <div class="ritual-root" id="ritualRoot">
-    <div class="starfield"></div>
+  <div class="ritual-root" id="root">
     <div class="summoning-circle"></div>
-    <!-- Mets au moins ces éléments pour tester -->
-    <div class="portal">
-      <div class="portal-layer portal-outer"></div>
-      <div class="portal-layer portal-mid"></div>
-      <div class="portal-layer portal-inner"></div>
-    </div>
+    <div class="portal"></div>
     <div class="runes-ring">
-      <div class="rune">ᚦ</div><div class="rune">ᚱ</div><div class="rune">ᚨ</div><div class="rune">ᚹ</div>
-      <!-- ... ajoute les autres runes si tu veux -->
+      <div class="rune">ᚦ</div>
+      <div class="rune">ᚱ</div>
+      <div class="rune">ᚨ</div>
+      <div class="rune">ᚹ</div>
+      <div class="rune">ᚾ</div>
+      <div class="rune">ᚲ</div>
+      <div class="rune">ᛉ</div>
+      <div class="rune">ᛞ</div>
+      <div class="rune">ᛃ</div>
+      <div class="rune">ᛟ</div>
+      <div class="rune">ᚺ</div>
+      <div class="rune">ᛒ</div>
     </div>
-    <!-- Book et le reste quand le cercle marche -->
+
+    <div class="book-wrapper">
+      <div class="book">
+        <div class="book-cover left"></div>
+        <div class="book-cover right"></div>
+        <div class="page">
+          <h2>GRIMOIRE</h2>
+          <p>Clique sur un lien pour lancer le rituel...</p>
+          <!-- Tu pourras remettre tes <a> ici plus tard -->
+        </div>
+      </div>
+    </div>
+
+    <div class="hint">Clique sur le grimoire ou n'importe où pour tester</div>
   </div>
+
+  <script>
+    document.addEventListener('click', () => {
+      const root = document.getElementById('root');
+      root.classList.add('invoking');
+      setTimeout(() => root.classList.remove('invoking'), 5000);
+    });
+  </script>
 </body>
 </html>
