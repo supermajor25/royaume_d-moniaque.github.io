@@ -1,0 +1,137 @@
+<style>
+    :root {
+      --bg-dark: #000000;
+      --violet: #4a0033;          /* violet très sombre, presque absent */
+      --red: #8b0000;             /* rouge sombre/sang */
+      --orange-fire: #b33c00;     /* orange feu profond */
+      --gold-dim: #8b5a2b;        /* or terni, cuivreux */
+      --book-cuir: #1a0d00;       /* cuir très noirci */
+      --book-metal: #0a0a0a;
+      --paper: #1c1208;           /* papier ancien très sombre */
+      --paper-shadow: #0f0804;
+      --chain-metal: #222222;
+      --flash: #ff4500;           /* flash orange-rouge */
+      --portal-inner: #b33c00;    /* orange feu */
+      --portal-mid: #8b0000;      /* rouge sang */
+      --portal-outer: #4a1a00;    /* orange très sombre */
+      --ritual-duration: 5s;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1a0000 0, #000000 60%, #000000 100%);
+      color: #d9b3b3;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    .ritual-root {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(139,0,0,0.15) 0, transparent 60%),
+        radial-gradient(circle at 80% 100%, rgba(179,60,0,0.18) 0, transparent 60%),
+        radial-gradient(circle at 50% 50%, #000000 0, #000000 75%);
+    }
+    .ritual-root.invoking { animation: screen-vibration var(--ritual-duration) ease-in-out; }
+    /* Vibration reste identique */
+
+    .starfield {
+      opacity: 0.04;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(255,69,0,0.12) 0, transparent 40%),
+        radial-gradient(circle at 80% 10%, rgba(139,0,0,0.10) 0, transparent 45%),
+        radial-gradient(circle at 20% 80%, rgba(179,60,0,0.11) 0, transparent 50%);
+    }
+
+    .summoning-circle {
+      border: 2px solid rgba(139,0,0,0.12);
+      background:
+        radial-gradient(circle at center, rgba(139,0,0,0.06) 0, transparent 55%),
+        conic-gradient(from 0deg, rgba(179,60,0,0.35), rgba(139,0,0,0.32), rgba(139,90,43,0.30), rgba(179,60,0,0.35));
+      opacity: 0.10;
+    }
+    .ritual-root.invoking .summoning-circle { opacity: 0.40; }
+
+    .portal {
+      filter: drop-shadow(0 0 50px rgba(139,0,0,0.8));
+      opacity: 0.30;
+    }
+    .portal-inner { 
+      border-color: var(--portal-inner);
+      box-shadow: 0 0 24px rgba(179,60,0,0.9);
+    }
+    .portal-mid { 
+      border-color: var(--portal-mid);
+      box-shadow: 0 0 40px rgba(139,0,0,0.9);
+    }
+    .portal-outer { 
+      border-color: var(--portal-outer);
+      box-shadow: 0 0 65px rgba(75,26,0,0.8);
+    }
+
+    .runes-ring {
+      filter: drop-shadow(0 0 12px rgba(139,90,43,0.7));
+      opacity: 0.20;
+    }
+    .rune {
+      color: rgba(139,90,43,0.95);
+      text-shadow:
+        0 0 8px rgba(139,90,43,0.9),
+        0 0 16px rgba(139,0,0,0.85),
+        0 0 24px rgba(179,60,0,0.7);
+    }
+
+    .book-base {
+      background: linear-gradient(135deg, #0a0a0a 0, #140000 30%, #1a0d00 50%, #0f0000 100%);
+    }
+    .book-core-glow {
+      background:
+        radial-gradient(circle at 40% 40%, rgba(139,0,0,0.35) 0, transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(179,60,0,0.30) 0, transparent 55%),
+        radial-gradient(circle at 20% 80%, rgba(139,90,43,0.28) 0, transparent 50%);
+      opacity: 0.40;
+    }
+    .book-symbol {
+      color: rgba(139,90,43,0.95);
+      text-shadow:
+        0 0 8px rgba(139,90,43,0.9),
+        0 0 16px rgba(139,0,0,0.8),
+        0 0 28px rgba(179,60,0,0.7);
+    }
+
+    .page-inner {
+      background: linear-gradient(135deg, #1c1208, #0f0804);
+      color: #d9b3b3;
+    }
+    .ritual-link {
+      background: linear-gradient(135deg, #2c1a12, #1a0f0a);
+      color: #d9b3b3;
+      border: 1px solid rgba(139,0,0,0.35);
+    }
+    .ritual-link:hover {
+      border-color: rgba(179,60,0,0.8);
+      box-shadow: 0 0 14px rgba(179,60,0,0.4);
+    }
+    .ritual-link::before {
+      background: linear-gradient(120deg, rgba(139,0,0,0.25), rgba(179,60,0,0.30), rgba(139,90,43,0.20));
+    }
+
+    .flash-overlay {
+      background: radial-gradient(circle at center, #ff4500 0, rgba(255,69,0,0.8) 25%, rgba(139,0,0,0.5) 45%, transparent 70%);
+    }
+
+    .particle {
+      background: #ff4500;
+      box-shadow:
+        0 0 12px rgba(255,69,0,0.9),
+        0 0 24px rgba(139,0,0,0.9),
+        0 0 36px rgba(179,60,0,0.8);
+    }
+
+    /* Le reste des styles (keyframes, positions, responsive, etc.) reste identique au code précédent */
+    /* ... (copie-colle les parties non modifiées : @keyframes, .book-cover-left/right, .hands, .hint, media queries, etc.) ... */
+
+    /* Pour ne pas alourdir, je n'ai pas recopié les 300+ lignes identiques ici, mais tu les gardes telles quelles du code précédent */
+  </style>
