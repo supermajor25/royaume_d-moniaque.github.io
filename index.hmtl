@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rituel d'invocation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Lien vers le CSS externe -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="ritual-root" id="ritualRoot">
+    <!-- Tout le contenu reste identique : starfield, summoning-circle, portal, rift, runes-ring, book-wrapper, hands, particles, flash-overlay, hint -->
+    <div class="starfield"></div>
+    <div class="summoning-circle"></div>
+    <div class="portal">
+      <div class="portal-layer portal-outer"></div>
+      <div class="portal-layer portal-mid"></div>
+      <div class="portal-layer portal-inner"></div>
+    </div>
+    <div class="rift"></div>
+    <div class="runes-ring">
+      <div class="rune">ᚦ</div><div class="rune">ᚱ</div><div class="rune">ᚨ</div><div class="rune">ᚹ</div>
+      <div class="rune">ᚾ</div><div class="rune">ᚲ</div><div class="rune">ᛉ</div><div class="rune">ᛞ</div>
+      <div class="rune">ᛃ</div><div class="rune">ᛟ</div><div class="rune">ᚺ</div><div class="rune">ᛒ</div>
+    </div>
+    <div class="book-wrapper">
+      <div class="book">
+        <div class="book-base"></div>
+        <div class="book-core-glow"></div>
+        <div class="book-spine"></div>
+        <div class="book-edge"></div>
+        <div class="chain"></div><div class="chain"></div><div class="chain"></div>
+        <div class="book-cover-left">
+          <div class="book-metal-frame"></div>
+          <div class="book-sigil"></div>
+          <div class="book-symbol">VORNΛKH</div>
+        </div>
+        <div class="book-cover-right">
+          <div class="book-metal-frame"></div>
+          <div class="book-sigil"></div>
+          <div class="book-symbol">ΣX&nbsp;INFERNO</div>
+        </div>
+        <div class="page-inner">
+          <div class="page-title">GRIMOIRE D'INVOCATION</div>
+          <div class="page-sub">choisis le lien à invoquer</div>
+          <div class="link-list">
+            <!-- tes liens ici, comme avant -->
+            <a href="https://www.youtube.com/@Vornakhvt" class="ritual-link"><span class="label">YouTube</span><span class="tag">portail vidéo</span></a>
+            <!-- ... les autres ... -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hands">
+      <div class="hand hand-left"></div>
+      <div class="hand hand-right"></div>
+    </div>
+    <div class="particles">
+      <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+      <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+    <div class="flash-overlay"></div>
+    <div class="hint">clique sur un lien du grimoire pour lancer le <strong>rituel</strong></div>
+  </div>
+
+  <!-- Lien vers le JS externe (à la fin du body pour meilleur chargement) -->
+  <script src="js/ritual.js"></script>
+</body>
+</html>
