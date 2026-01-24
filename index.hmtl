@@ -64,7 +64,6 @@
     <div class="flash-overlay"></div>
     <div class="hint">clique sur un lien du grimoire pour lancer le <strong>rituel</strong></div>
   </div>
-
   <!-- Lien vers le JS externe (à la fin du body pour meilleur chargement) -->
   <script src="js/ritual.js"></script>
 </body>
