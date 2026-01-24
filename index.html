@@ -6,20 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     :root {
-      --bg-dark: #05030a;
-      --violet: #b042ff;
-      --red: #ff1844;
-      --gold: #f7c96b;
-      --book-cuir: #3b2414;
-      --book-metal: #111118;
-      --paper: #f7f1dc;
-      --paper-shadow: #e4d9c2;
-      --chain-metal: #d0d0d0;
-      --flash: #fdf7ff;
-      --portal-inner: #ff2d71;
-      --portal-mid: #b042ff;
-      --portal-outer: #ffdd66;
-      --ritual-duration: 5s;
+     --bg-dark: #000000;
+  --red: #a50000;             /* rouge plus vif que #8b0000 */
+  --orange-fire: #d94f00;     /* orange plus lumineux */
+  --gold-dim: #c68e17;        /* or plus visible */
+  --book-cuir: #1f0f00;
+  --book-metal: #0f0f0f;
+  --paper: #2a1a0e;
+  --paper-shadow: #140c06;
+  --chain-metal: #333333;
+  --flash: #ff6600;           /* orange flashy */
+  --portal-inner: #ff4500;    /* orange vif pour l'intérieur */
+  --portal-mid: #c00000;      /* rouge moyen */
+  --portal-outer: #662200;    /* orange foncé extérieur */
+  --ritual-duration: 5s;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
@@ -56,14 +56,12 @@
       90% { transform: translate(2px,-1px); }
     }
     .starfield {
-      position: absolute;
-      inset: -20%;
-      background:
-        radial-gradient(circle at 10% 20%, rgba(255,255,255,0.28) 0, transparent 40%),
-        radial-gradient(circle at 80% 10%, rgba(255,255,255,0.18) 0, transparent 45%),
-        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.22) 0, transparent 50%),
-        radial-gradient(circle at 70% 70%, rgba(255,255,255,0.16) 0, transparent 45%);
-      opacity: 0.05;
+     opacity: 0.12;               /* au lieu de 0.04 */
+     background:
+    radial-gradient(circle at 10% 20%, rgba(255,102,0,0.25) 0, transparent 40%),
+    radial-gradient(circle at 80% 10%, rgba(165,0,0,0.20) 0, transparent 45%),
+    radial-gradient(circle at 20% 80%, rgba(217,79,0,0.22) 0, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(198,142,23,0.18) 0, transparent 45%);
       filter: blur(1px);
       mix-blend-mode: screen;
       animation: star-pulse 14s ease-in-out infinite;
@@ -79,12 +77,12 @@
       width: 520px;
       height: 520px;
       border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.1);
-      background:
-        radial-gradient(circle at center, rgba(255,255,255,0.08) 0, transparent 55%),
-        conic-gradient(from 0deg, rgba(255,45,113,0.4), rgba(176,66,255,0.38), rgba(247,201,107,0.4), rgba(255,45,113,0.4));
+     border: 2px solid rgba(217,79,0,0.3);
+     background:
+    radial-gradient(circle at center, rgba(217,79,0,0.15) 0, transparent 55%),
+    conic-gradient(from 0deg, rgba(217,79,0,0.5), rgba(165,0,0,0.45), rgba(198,142,23,0.4), rgba(217,79,0,0.5));
       mix-blend-mode: screen;
-      opacity: 0.09;
+      opacity: 0.25;               /* au lieu de 0.10 */
       filter: blur(1px);
       animation: circle-rotate 32s linear infinite;
       pointer-events: none;
@@ -115,8 +113,8 @@
       align-items: center;
       justify-content: center;
       pointer-events: none;
-      filter: drop-shadow(0 0 40px rgba(176,66,255,0.7));
-      opacity: 0.25;
+     filter: drop-shadow(0 0 60px rgba(255,69,0,0.9));
+     opacity: 0.8;                /* au lieu de 0.30 */
       transform: translate(-50%, -50%) scale(0.7);
       transition: 0.3s ease-out;
       top: 50%;
@@ -128,29 +126,30 @@
       border-radius: 50%;
       border-style: solid;
       mix-blend-mode: screen;
+    
     }
     .portal-inner {
       width: 150px;
       height: 150px;
       border-width: 4px;
       border-color: var(--portal-inner);
-      box-shadow: 0 0 18px rgba(255,45,113,0.9);
+     box-shadow: 0 0 35px rgba(255,69,0,1);
       animation: portal-spin-inner 7s linear infinite;
     }
     .portal-mid {
       width: 250px;
       height: 250px;
       border-width: 5px;
-      border-color: var(--portal-mid);
-      box-shadow: 0 0 32px rgba(176,66,255,0.9);
-      animation: portal-spin-mid 12s linear infinite;
+    border-color: var(--portal-mid);
+    box-shadow: 0 0 50px rgba(192,0,0,0.95);
+     animation: portal-spin-mid 12s linear infinite;
     }
     .portal-outer {
       width: 380px;
       height: 380px;
       border-width: 3px;
-      border-color: var(--portal-outer);
-      box-shadow: 0 0 55px rgba(255,221,102,0.7);
+     border-color: var(--portal-outer);
+      box-shadow: 0 0 80px rgba(102,34,0,0.85);
       animation: portal-spin-outer 18s linear infinite;
     }
     @keyframes portal-spin-inner {
@@ -188,8 +187,8 @@
       align-items: center;
       justify-content: center;
       pointer-events: none;
-      opacity: 0.16;
-      filter: drop-shadow(0 0 8px rgba(247,201,107,0.6));
+     opacity: 0.7;                /* au lieu de 0.20 */
+     filter: drop-shadow(0 0 18px rgba(198,142,23,0.9));
       animation: runes-spin 18s linear infinite;
       top: 50%;
       left: 50%;
@@ -203,12 +202,12 @@
     .rune {
       position: absolute;
       font-size: 18px;
-      color: rgba(247,201,107,0.9);
-      text-shadow:
-        0 0 6px rgba(247,201,107,0.8),
-        0 0 12px rgba(176,66,255,0.8),
-        0 0 18px rgba(255,45,113,0.7);
-      opacity: 0.8;
+     color: rgba(198,142,23,1);   /* or vif */
+     text-shadow:
+    0 0 10px rgba(255,102,0,0.9),
+    0 0 18px rgba(165,0,0,0.85),
+    0 0 28px rgba(217,79,0,0.8);
+    opacity: 1;
     }
     .rune:nth-child(1) { transform: rotate(0deg) translate(140px); }
     .rune:nth-child(2) { transform: rotate(30deg) translate(140px); }
@@ -306,12 +305,12 @@
       position: absolute;
       inset: 15px;
       border-radius: 10px;
-      background:
-        radial-gradient(circle at 40% 40%, rgba(176,66,255,0.3) 0, transparent 50%),
-        radial-gradient(circle at 70% 70%, rgba(255,45,113,0.3) 0, transparent 55%),
-        radial-gradient(circle at 20% 80%, rgba(247,201,107,0.35) 0, transparent 50%);
+     background:
+    radial-gradient(circle at 40% 40%, rgba(165,0,0,0.5) 0, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(217,79,0,0.45) 0, transparent 55%),
+    radial-gradient(circle at 20% 80%, rgba(198,142,23,0.4) 0, transparent 50%);
       mix-blend-mode: screen;
-      opacity: 0.35;
+      opacity: 0.6;                /* au lieu de 0.40 ou moins */
       filter: blur(2px);
     }
     .ritual-root.invoking .book-core-glow {
@@ -631,7 +630,7 @@
       position: absolute;
       inset: -5%;
       background:
-        radial-gradient(circle at center, var(--flash) 0, rgba(253,247,255,0.9) 25%, rgba(253,247,255,0.4) 45%, transparent 70%);
+     background: radial-gradient(circle at center, #ff6600 0, rgba(255,102,0,0.9) 25%, rgba(165,0,0,0.6) 45%, transparent 70%);
       opacity: 0;
       mix-blend-mode: screen;
       pointer-events: none;
@@ -660,11 +659,11 @@
       width: 4px;
       height: 4px;
       border-radius: 50%;
-      background: #fff;
-      box-shadow:
-        0 0 10px rgba(255,255,255,0.9),
-        0 0 20px rgba(176,66,255,0.9),
-        0 0 28px rgba(255,45,113,0.9);
+     background: #ff6600;
+     box-shadow:
+    0 0 18px rgba(255,102,0,1),
+    0 0 30px rgba(165,0,0,1),
+    0 0 45px rgba(217,79,0,0.9);
       opacity: 0;
     }
     .particle:nth-child(1) { top: 20%; left: 30%; }
