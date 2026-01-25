@@ -828,70 +828,48 @@
     <div class="hint">clique sur un lien du grimoire pour lancer le <strong>rituel</strong></div>
   </div>
 
-  <script>
+<script>
 (() => {
   let isInvoking = false;
-  let ritualTimeout = null;
-
-  const root = document.documentElement; // ou ton conteneur d'animation
-  const links = document.querySelectorAll('a[data-ritual]');
+  const root = document.documentElement;
 
   function startRitual(url) {
     if (isInvoking) return;
     isInvoking = true;
 
-    //  OUVERTURE IMMÉDIATE synchronisée au clic
-    const portal = window.open('about:blank', '_blank', 'noopener,noreferrer');
+    // OUVERTURE IMMÉDIATE = autorisée par le navigateur
+    const portal = window.open('about:blank', '_blank');
 
-    if (!portal || portal.closed) {
-      // Si malgré tout bloqué
-      alert("Veuillez autoriser les popups pour ce site.");
+    if (!portal  portal.closed) {
+      alert("Le navigateur a bloqué l'ouverture du nouvel onglet.");
       isInvoking = false;
       return;
     }
 
-    // Lance l'animation dans l'onglet d'origine
+    // Lance ton animation
     root.classList.add('invoking');
 
-    // Optionnel : message dans le nouvel onglet pendant l'attente
-    try {
-      portal.document.write(
-        <!DOCTYPE html>
-        <html lang="fr">
-        <head><meta charset="UTF-8"><title>Invocation...</title></head>
-        <body style="margin:0;background:#000;color:#b33c00;
-                     font-family:system-ui;text-align:center;padding-top:20vh;">
-          <h1>Le rituel s'accomplit...</h1>
-          <p>Le portail s'ouvre dans quelques instants.</p>
-        </body>
-        </html>
-      );
-      portal.document.close();
-    } catch(e) {}
-
-    //  Après 5 secondes, on redirige CET onglet
-    ritualTimeout = setTimeout(() => {
-      if (portal && !portal.closed) {
-        portal.location.replace(url);
-        portal.focus();
-      }
+    // Après 5 secondes, on redirige le nouvel onglet
+    setTimeout(() => {
+      portal.location.href = url;
+      portal.focus();
 
       root.classList.remove('invoking');
       isInvoking = false;
     }, 5000);
   }
 
-  // Attache aux liens
-  links.forEach(link => {
+  // Attache à TOUS les liens
+  document.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', function(e) {
-      e.preventDefault();
       const url = this.getAttribute('href');
-      if (url) startRitual(url);
-    });
-  });
 
-  window.addEventListener('beforeunload', () => {
-    if (ritualTimeout) clearTimeout(ritualTimeout);
+      // Ignore liens invalides
+      if (!url  url.startsWith('#') || url.startsWith('javascript:')) return;
+
+      e.preventDefault();
+      startRitual(url);
+    });
   });
 })();
 </script>
