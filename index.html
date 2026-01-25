@@ -829,90 +829,71 @@
   </div>
 
   <script>
-    function openInNewTab(url) {
-  const a = document.createElement('a');
-  a.href = url;
-  a.target = '_blank';
-  a.rel = 'noopener noreferrer';   // sécurité importante
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);     // nettoie après
+(() => {
+  let isInvoking = false;
+  let ritualTimeout = null;
 
-      function startRitual(url) {
-        if (isInvoking) return;
-        isInvoking = true;
-        root.classList.add('invoking');
+  const root = document.documentElement; // ou ton conteneur d'animation
+  const links = document.querySelectorAll('a[data-ritual]');
 
-        // Ouvre une tab vide immédiatement (évite blocage popup)
-        const portal = window.open('about:blank', '_blank', 'noopener,noreferrer');
-        
-if (currentPortal) {
-        // Optionnel : message dans la popup vide pendant le rituel
-        currentPortal.document.write(`
-          <!DOCTYPE html>
-          <html lang="fr">
-          <head><meta charset="UTF-8"><title>Invocation...</title></head>
-          <body style="margin:0;background:#000;color:#b33c00;font-family:system-ui;text-align:center;padding-top:20vh;">
-            <h1 style="font-size:2.5em;margin-bottom:1rem;">Le rituel s'accomplit...</h1>
-            <p style="font-size:1.3em;opacity:0.8;">Le portail s'ouvre dans quelques instants.</p>
-          </body>
-          </html>
-        `);
-        currentPortal.document.close();
+  function startRitual(url) {
+    if (isInvoking) return;
+    isInvoking = true;
+
+    //  OUVERTURE IMMÉDIATE synchronisée au clic
+    const portal = window.open('about:blank', '_blank', 'noopener,noreferrer');
+
+    if (!portal || portal.closed) {
+      // Si malgré tout bloqué
+      alert("Veuillez autoriser les popups pour ce site.");
+      isInvoking = false;
+      return;
+    }
+
+    // Lance l'animation dans l'onglet d'origine
+    root.classList.add('invoking');
+
+    // Optionnel : message dans le nouvel onglet pendant l'attente
+    try {
+      portal.document.write(
+        <!DOCTYPE html>
+        <html lang="fr">
+        <head><meta charset="UTF-8"><title>Invocation...</title></head>
+        <body style="margin:0;background:#000;color:#b33c00;
+                     font-family:system-ui;text-align:center;padding-top:20vh;">
+          <h1>Le rituel s'accomplit...</h1>
+          <p>Le portail s'ouvre dans quelques instants.</p>
+        </body>
+        </html>
+      );
+      portal.document.close();
+    } catch(e) {}
+
+    //  Après 5 secondes, on redirige CET onglet
+    ritualTimeout = setTimeout(() => {
+      if (portal && !portal.closed) {
+        portal.location.replace(url);
+        portal.focus();
       }
 
-    setTimeout(() => {
-  root.classList.remove('invoking');
-
-  // On ouvre directement un nouvel onglet avec l'URL cible
-  const newTab = window.open(url, '_blank', 'noopener,noreferrer');
-
-  if (newTab) {
-    // Optionnel : focus sur le nouvel onglet
-    newTab.focus();
-  } else {
-    // Fallback si popup bloquée (rare à ce stade)
-    alert("Le navigateur a bloqué l'ouverture du nouvel onglet.\nVeuillez autoriser les popups pour ce site.");
-    window.location.href = url; // ou laisser l'utilisateur cliquer manuellement
+      root.classList.remove('invoking');
+      isInvoking = false;
+    }, 5000);
   }
 
-  // Si tu avais une popup vide ouverte au début, on la ferme
-  if (currentPortal && !currentPortal.closed) {
-    currentPortal.close();
-  }
-}, 5000);
+  // Attache aux liens
+  links.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const url = this.getAttribute('href');
+      if (url) startRitual(url);
     });
   });
+
+  window.addEventListener('beforeunload', () => {
+    if (ritualTimeout) clearTimeout(ritualTimeout);
+  });
 })();
-        if (!portal || portal.closed) {
-          // Fallback si popup bloqué
-          window.open(url, '_blank');
-          root.classList.remove('invoking');
-          isInvoking = false;
-          return;
-        }
-
-        ritualTimeout = setTimeout(() => {
-          if (portal && !portal.closed) {
-            portal.location.replace(url);
-          }
-          root.classList.remove('invoking');
-          isInvoking = false;
-        }, 5000);
-      }
-
-      links.forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          const url = this.getAttribute('href');
-          if (url) startRitual(url);
-        });
-      });
-
-      window.addEventListener('beforeunload', () => {
-        if (ritualTimeout) clearTimeout(ritualTimeout);
-      });
-    })();
-  </script>
+</script>
 </body>
 </html>
