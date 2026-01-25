@@ -829,14 +829,14 @@
   </div>
 
   <script>
-    (function() {
-      const root = document.getElementById('ritualRoot');
-   const links = document.querySelectorAll('.ritual-link').forEach(link => {
-      let isInvoking = false;
-      let ritualTimeout = null;
-     link.addEventListener('click', function(e) {
-      e.preventDefault();
-      const url = this.href;
+    function openInNewTab(url) {
+  const a = document.createElement('a');
+  a.href = url;
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';   // sécurité importante
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);     // nettoie après
 
       function startRitual(url) {
         if (isInvoking) return;
