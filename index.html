@@ -19,6 +19,7 @@
   --portal-inner: #ff4500;    /* orange vif pour l'intérieur */
   --portal-mid: #c00000;      /* rouge moyen */
   --portal-outer: #662200;    /* orange foncé extérieur */
+      
   --ritual-duration: 5s;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -828,50 +829,20 @@
     <div class="hint">clique sur un lien du grimoire pour lancer le <strong>rituel</strong></div>
   </div>
 
+<a href="https://google.com/" id="testLink">Ouvrir Google</a>
+
 <script>
-(() => {
-  let isInvoking = false;
-  const root = document.documentElement;
+document.getElementById('testLink').addEventListener('click', function(e) {
+  e.preventDefault();
 
-  function startRitual(url) {
-    if (isInvoking) return;
-    isInvoking = true;
+  const w = window.open('https://google.com/', '_blank');
 
-    // OUVERTURE IMMÉDIATE = autorisée par le navigateur
-    const portal = window.open('about:blank', '_blank');
-
-    if (!portal  portal.closed) {
-      alert("Le navigateur a bloqué l'ouverture du nouvel onglet.");
-      isInvoking = false;
-      return;
-    }
-
-    // Lance ton animation
-    root.classList.add('invoking');
-
-    // Après 5 secondes, on redirige le nouvel onglet
-    setTimeout(() => {
-      portal.location.href = url;
-      portal.focus();
-
-      root.classList.remove('invoking');
-      isInvoking = false;
-    }, 5000);
+  if (!w) {
+    alert("Popup bloquée");
+  } else {
+    alert("Nouvel onglet ouvert");
   }
-
-  // Attache à TOUS les liens
-  document.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', function(e) {
-      const url = this.getAttribute('href');
-
-      // Ignore liens invalides
-      if (!url  url.startsWith('#') || url.startsWith('javascript:')) return;
-
-      e.preventDefault();
-      startRitual(url);
-    });
-  });
-})();
+});
 </script>
 </body>
 </html>
