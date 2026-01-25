@@ -861,17 +861,26 @@ if (currentPortal) {
         currentPortal.document.close();
       }
 
-      setTimeout(() => {
-        root.classList.remove('invoking');
+    setTimeout(() => {
+  root.classList.remove('invoking');
 
-        if (currentPortal && !currentPortal.closed) {
-          currentPortal.location.href = url;
-          currentPortal.focus();
-        } else {
-          // Fallback ultra-rare : même onglet
-          window.location.href = url;
-        }
-      }, 5000);
+  // On ouvre directement un nouvel onglet avec l'URL cible
+  const newTab = window.open(url, '_blank', 'noopener,noreferrer');
+
+  if (newTab) {
+    // Optionnel : focus sur le nouvel onglet
+    newTab.focus();
+  } else {
+    // Fallback si popup bloquée (rare à ce stade)
+    alert("Le navigateur a bloqué l'ouverture du nouvel onglet.\nVeuillez autoriser les popups pour ce site.");
+    window.location.href = url; // ou laisser l'utilisateur cliquer manuellement
+  }
+
+  // Si tu avais une popup vide ouverte au début, on la ferme
+  if (currentPortal && !currentPortal.closed) {
+    currentPortal.close();
+  }
+}, 5000);
     });
   });
 })();
